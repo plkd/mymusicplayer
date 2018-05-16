@@ -14,7 +14,8 @@ export default {
   name: 'playlist',
   data() {
     return {
-      playlist: []
+      playlist: [],
+      name: ''
     }
   },
   created() {
