@@ -3,6 +3,7 @@
     <ul class="list">
       <li class="item" v-for="item in playlist" :key="item.id">
         <img :src="item.coverImgUrl" width="80" height="80" alt="">
+        <div></div>
       </li>
     </ul>
   </div>
