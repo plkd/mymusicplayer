@@ -64,3 +64,45 @@ export function getUserInfo() {
     params: data
   })
 }
+
+export function getFollows() {
+  const url = '/user/follows'
+  let data = {
+    uid
+  }
+  return get(url, {
+    params: data
+  })
+}
+
+export function getFollowers() {
+  const url = '/user/followeds'
+  let data = {
+    uid
+  }
+  return get(url, {
+    params: data
+  })
+}
+// 获取歌单分类
+export function getCatlist() {
+  const url = '/playlist/catlist'
+  return get(url)
+}
+
+// 获取热门歌单
+export function getHotList() {
+  const url = '/playlist/hot'
+  return get(url)
+}
+
+// 获取歌单详情
+export function getPlaylistDetail(id) {
+  const url = '/playlist/detail'
+  let data = {
+    id
+  }
+  return get(url, {
+    params: data
+  })
+}

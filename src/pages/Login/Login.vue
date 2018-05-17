@@ -16,58 +16,72 @@
   </div>
 </template>
 <script>
-import MHeader from '@/components/header/header'
-import { loginPhone, refresh, signin, getUserInfo } from '@/api'
+  import MHeader from '@/components/header/header'
+  import {loginPhone, refresh, signin, getUserInfo} from '@/api'
+  import {mapState, mapMutations} from 'vuex'
 
-export default {
-  name: 'LogIn',
-  data() {
-    return {
-      account: '',
-      password: ''
-    }
-  },
-  components: {
-    MHeader
-  },
-  methods: {
-    init() {},
-    _loginPhone() {
-      loginPhone(this.account, this.password)
-        .then(result => {
-          let uid = result.account.id
-          window.localStorage.setItem('uid', uid)
-          this.$router.push({path: `/playlist`})
-        })
-        .catch(err => {
-          console.log(err)
-        })
+  export default {
+    name: 'LogIn',
+    data() {
+      return {
+        account: '17625921973',
+        password: '19940401'
+      }
     },
-    _refresh() {
-      refresh().then(res => {
-        console.log(res)
-        if (res.code === 200) {
-          alert('refresh successfully!')
-        }
-      })
+    components: {
+      MHeader
     },
-    _signin() {
-      signin().then(res => {
-        console.log(res)
-      })
+    computed: {
+      ...mapState([
+        'userInfo'
+      ])
     },
-    _userInfo() {
-      getUserInfo()
-        .then(result => {})
-        .catch(err => {
-          console.log(err);
+    methods: {
+      ...mapMutations([
+        'SET_USERINFO'
+      ]),
+      init() {
+      },
+      _loginPhone() {
+        loginPhone(this.account, this.password)
+          .then(result => {
+            let uid = result.account.id
+            this.SET_USERINFO(result)
+            window.localStorage.setItem('uid', uid)
+            this.$router.push({path: `/playlist`})
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
+      _refresh() {
+        refresh().then(res => {
+          console.log(res)
+          if (res.code === 200) {
+            alert('refresh successfully!')
+          }
         })
+      },
+      _signin() {
+        signin().then(res => {
+          console.log(res)
+        })
+      },
+      _userInfo() {
+        getUserInfo()
+          .then(result => {
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
     }
   }
-}
 </script>
 <style lang="stylus" scoped>
-.login
-  input[type='button']
-    border 1px solid #000000
+  .login
+    input[type='button']
+      display: block
+      border 1px solid #000000
+      margin 10px
 </style>
